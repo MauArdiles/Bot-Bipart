@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 /*---------------------------------------------------*/
-const PORT = require("./config.js");
+const { PORT } = require("./config.js");
 /*---------------------------------------------------*/
 const clientsRouter = require("./routes/clients.routes.js");
 const excelRoutes = require("./routes/excel.routes.js");
