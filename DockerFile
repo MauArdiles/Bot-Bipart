@@ -1,0 +1,31 @@
+FROM node:18
+# Create app directory
+WORKDIR /usr/src/app
+
+# Installs latest Chromium (92) package.
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    nodejs \
+    yarn
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Puppeteer v10.0.0 works with Chromium 92.
+RUN npm install puppeteer@10.0.0
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
+# Bundle app source
+COPY . .
+EXPOSE 4000
+CMD [ "node", "index.js" ]
