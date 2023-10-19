@@ -1,10 +1,16 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
+// const qrcode = require("qrcode-terminal");
 
 class Cliente extends Client {
   constructor() {
     super({
       puppeteer: {
-        headless: false,
+        headless: true,
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--unhandled-rejections=strict",
+        ],
       },
       authStrategy: new LocalAuth({
         clientId: "bipart",
@@ -12,7 +18,8 @@ class Cliente extends Client {
     });
 
     this.on("qr", (qr) => {
-      console.log("QR Recibido", qr);
+      // qrcode.generate(qr, { small: true });
+      console.log("QR RECEIVED", qr);
     });
 
     this.on("ready", () => {

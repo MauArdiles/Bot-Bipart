@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - '4000:4000'
+      - '5501:5501'
     depends_on:
       - db
     environment:
