@@ -13,7 +13,7 @@ const readFile = async (req, res) => {
     const data = xlsx.utils.sheet_to_json(sheet);
 
     for (const row of data) {
-      await pool.query(
+      pool.query(
         "INSERT INTO clients(cuit, cliente, vep, mensaje, recordatorio, contacto, alternativo, grupo) VALUES (?,?,?,?,?,?,?,?)",
         [
           row.CUIT,

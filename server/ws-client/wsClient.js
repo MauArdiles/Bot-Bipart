@@ -1,5 +1,5 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
-// const qrcode = require("qrcode-terminal");
+const qrcode = require("qrcode-terminal");
 
 class Cliente extends Client {
   constructor() {
@@ -10,16 +10,20 @@ class Cliente extends Client {
           "--no-sandbox",
           "--disable-setuid-sandbox",
           "--unhandled-rejections=strict",
+          "--enable-gpu",
         ],
+        ignoreDefaultArgs: ["--disable-extensions"],
       },
       authStrategy: new LocalAuth({
         clientId: "bipart",
       }),
     });
 
+    this.initialize();
+
     this.on("qr", (qr) => {
-      // qrcode.generate(qr, { small: true });
-      console.log("QR RECEIVED", qr);
+      qrcode.generate(qr, { small: true });
+      //console.log("QR RECEIVED", qr);
     });
 
     this.on("ready", () => {
@@ -31,7 +35,6 @@ class Cliente extends Client {
       this.status = false;
       console.log("Login Fallido");
     });
-    this.initialize();
   }
 }
 
