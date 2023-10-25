@@ -1,11 +1,11 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
-const qrcode = require("qrcode-terminal");
+//const qrcode = require("qrcode-terminal");
 
 class Cliente extends Client {
   constructor() {
     super({
       puppeteer: {
-        headless: true,
+        headless: false,
         args: [
           "--no-sandbox",
           "--disable-setuid-sandbox",
@@ -22,18 +22,18 @@ class Cliente extends Client {
     this.initialize();
 
     this.on("qr", (qr) => {
-      qrcode.generate(qr, { small: true });
-      //console.log("QR RECEIVED", qr);
+      //qrcode.generate(qr, { small: true });
+      console.log("QR RECIBIDO", qr);
     });
 
     this.on("ready", () => {
       this.status = true;
-      console.log("Login Exitoso");
+      console.log("LOGIN EXITOSO");
     });
 
     this.on("auth_failure", () => {
       this.status = false;
-      console.log("Login Fallido");
+      console.log("ERROR EN EL LOGIN");
     });
   }
 }
