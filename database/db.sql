@@ -7,8 +7,5 @@ CREATE TABLE clients(
     recordatorio VARCHAR(255) NOT NULL,
     contacto VARCHAR(255) NOT NULL,
     alternativo VARCHAR(255) NOT NULL,
-    grupo VARCHAR(255) NOT NULL,
-    estado VARCHAR(255) NOT NULL,
-    error VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    grupo VARCHAR(255) NOT NULL
 );

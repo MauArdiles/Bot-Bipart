@@ -1,5 +1,5 @@
 const xlsx = require("xlsx");
-const { pool } = require("../db.js");
+const pool = require("../db.js");
 
 const readFile = async (req, res) => {
   if (!req.file) {
@@ -27,7 +27,6 @@ const readFile = async (req, res) => {
         ]
       );
     }
-
     res.json("Datos ingresados correctamente");
   } catch (error) {
     console.error(error);

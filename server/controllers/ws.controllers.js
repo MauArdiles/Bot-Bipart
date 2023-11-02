@@ -3,6 +3,7 @@ const Cliente = require("../ws-client/wsClient.js");
 const pool = require("../db.js");
 const fs = require("fs");
 const path = require("path");
+const qrCode = require("qrcode");
 
 const cliente = new Cliente();
 
@@ -13,11 +14,11 @@ const envioMensaje = async (req, resp) => {
     [resultado] = await pool.query(
       "SELECT contacto FROM clients WHERE mensaje = 'SI'"
     );
+    console.log(resultado);
     resultado.forEach(async (fila) => {
       let { contacto } = fila;
       msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
     });
-
     console.log(msjEnviado);
     resp.json("El mensaje se envió correctamente");
   } catch (error) {
@@ -67,7 +68,6 @@ const envioRecordatorio = async (req, resp) => {
       let { contacto } = fila;
       msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
     });
-
     console.log(msjEnviado);
     resp.json("El mensaje se envió correctamente");
   } catch (error) {
@@ -76,8 +76,38 @@ const envioRecordatorio = async (req, resp) => {
   }
 };
 
+const initializeClient = (req, resp) => {
+  cliente.initialize();
+
+  cliente.on("qr", (qr) => {
+    const qrData = qr;
+    qrCode.toDataURL(qrData, (err, dataUrl) => {
+      if (err) {
+        console.log(`Conection Failed: ${err.message}`);
+      } else {
+        resp.send(
+          `<h1>Conexión con QR</h1>
+          <h2>Escanear el QR para conectarse con WhatsApp</h2>
+          <img src="${dataUrl}" alt="Código QR" />
+          <p>El QR se actualizará cada 1 minuto</p>
+          `
+        );
+      }
+    });
+  });
+
+  cliente.on("ready", () => {
+    cliente.status = true;
+  });
+
+  cliente.on("auth_failure", () => {
+    cliente.status = false;
+  });
+};
+
 module.exports = {
   envioMensaje: envioMensaje,
   envioMsjMedia: envioMsjMedia,
   envioRecordatorio: envioRecordatorio,
+  initializeClient: initializeClient,
 };
