@@ -7,10 +7,13 @@
     <title>Bi Part</title>
 </head>
     <body class="text-bp-white  bg-bp-primary" >
-        <div class="w-screen flex flex-row gap-5">
+        <header class="w-screen flex flex-row gap-5">
             <img src="./assets/Logo.png" alt="Bi Part Image" class="object-scale-down h-32 w-32 mx-5"/>
             <h1 class=" w-screen font-sans text-4xl text-center m-10">Bi Part Estudio Contable</h1>
-        </div>
+            <a href="help.html" class="m-5">
+                <img src="./assets/icono-ayuda.png" alt="Ayuda">
+            </a>
+        </header>
         <main class=" w-screen">
             <section class="flex flex-row gap-10">
                 <div class="w-1/2 mx-10">
@@ -36,7 +39,7 @@
                 <div class="w-1/2 my-10 flex flex-col justify-center"> <!-- Formulario para envío de Msj y Recordatorios -->
                     <form id="textForm" enctype="multipart/form-data">
                         <legend class="text-left m-2">Mensaje a Enviar:</legend>
-                        <textarea id="txtArea" name="message" form="textForm" rows="4" cols="65" placeholder="Mensaje a enviar" class="text-black"></textarea>
+                        <textarea id="txtArea" name="message" form="textForm" rows="4" cols="65" placeholder="Mensaje a enviar" class="text-bp-black"></textarea>
                     <div class="flex flex-row gap-1.5 items-center">
                         <button id="sendMsg" class="w-40 h-8 rounded shadow-lg p-1  bg-bp-secondary hover:bg-teal-600" type="submit">Enviar Mensaje</button>
                         <button id="sendVep" class="w-40 h-8 rounded shadow-lg p-1  bg-bp-secondary hover:bg-teal-600" type="button">Enviar VEP</button>
@@ -55,7 +58,9 @@
                 </button>
             </div>
         </main>
-        <footer></footer>
+        <footer class="text-center my-16">
+            Desarrollado por M.A. Servicios Informáticos&COPY; para Estudio Bipart 
+        </footer>
         <script src="form.js"></script>
     </body>
 </html>

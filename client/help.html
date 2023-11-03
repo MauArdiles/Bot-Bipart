@@ -3,9 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/client/dist/output.css" rel="stylesheet">
     <title>Bot-Instructions</title>
 </head>
-<body>
+<body class="text-bp-white  bg-bp-primary">
+    <header class="w-screen flex flex-row gap-5">
+        <a href="index.html">
+            <img src="./assets/Logo.png" alt="Bi Part Image" class="object-scale-down h-32 w-32 mx-5"/>
+        </a>
+        <h1 id="Inicio" class=" w-screen font-sans text-4xl text-center m-10">Bi Part Estudio Contable</h1>
+        <a href="help.html" class="m-5">
+            <img src="./assets/icono-ayuda.png" alt="Ayuda">
+        </a>
+    </header>
+    <h2 class="text-center my-5 text-4xl">Ayuda Bot-Bipart</h2>
     
+    <h2 class="ml-20 text-2xl underline mb-3">Índice</h2>
+    <ul class="text-justify ml-20 text-xl list-decimal underline">
+        <li><a href="#Conexión a WhatsAp">Conexión a WhatsApp</a></li>
+        <li><a href="#Carga de Base de Datos">Carga de Base de Datos</a></li>
+        <li><a href="#Actualización de base de Datos">Actualización de base de Datos</a></li>
+        <li><a href="#Envío de Vep">Envío de Vep</a></li>
+        <li><a href="#Envío de Mensajes y Recordatorios">Envío de Mensajes y Recordatorio</a></li>
+    </ul>
+
+    <h2 id="Conexión a WhatsAp" class="text-left mx-5 mt-20 text-xl">Conexión a WhatsAp</h2>
+    <p class="text-left mx-10 text-base">
+        El primer punto a tener en cuenta para la correcta conexión con WhatsAp es necesario tener el dispositivo a utilizar desvinculado de cualquier otra sesión previa al bot. Luego, en la página de inicio
+        del bot, presionamos el botón "Conectarse a WhatsAp", esperamos que se abra la ventana que contiene el código QR que escanearemos para establecer la conexión. Una vez escaneado deberemos esperar la 
+        sincronización de WhatsApp, en este caso, en el dispositivo conectado deberá aparecer la leyenda "Sesión Activa". Esto significa que la conexión se realizó de manera satisfactoria. 
+    </p>
+    
+    <h2 id="Carga de Base de Datos" class="text-left mx-5 my-3 text-xl">Carga de Base de Datos</h2>
+    <p class="text-left mx-10 text-base">La carga de la base de datos requiere de varios puntos a tener en cuenta para evitar cualquier error a la hora del envío de mensajes. A continuación se detallan:<br>
+        1. Tipo de Archivo:<br>
+    </p>
+    <p class="text-left ml-16 text-base">Sólo se acepta archivo Excel .xls/.xlsx</p>
+    <p class="text-left ml-10 text-base">2. Formato de Columnas:<br></p>
+    <p class="text-left ml-16 text-base">Se deben tener en cuenta los espacios en los títulos de las columnas, no debe existir ninguno, y, los nombres deben estar en mayúscula.</p>
+    <p class="text-left ml-10 text-base">3. Formato de Celdas:</p>     
+    <p class="text-left ml-16 text-base">Cuit: No debe tener guiones, espacios ni puntos.<br>
+        Número de contacto: debe respetar la siguiente forma: 5493510000000, es decir, código de país, código de área sin el "0" y el número de teléfono sin "15".<br>
+        Celdas sin Datos: No deben existir celdas vacías, siempre tienen que tener un dato, para informar ausencia de datos se puede escribir "-".<br>
+    </p>
+    <p class="text-left ml-10 text-base mb-10 mt-5">A continuación se muestra una imágen de referencia.</p>
+    <img src="assets/Tabla de referencia.png" alt="Tabla de Referencia">
+    
+    <h2 id="Actualización de base de Datos" class="text-left mx-5 my-3 text-xl">Actualización de base de Datos</h2>
+    <p class="text-left mx-10 text-base">Para la actualización de la base de datos, sólo se debe subir la tabla con los valores a modificar, no es necesario subir toda la tabla. En el caso de agregar nuevos 
+        valores, también sólo hay que subir una nueva tabla con dichos valores nuevos.
+    </p>
+    
+    <h2 id="Envío de Vep" class="text-left mx-5 my-3 text-xl">Envío de Vep</h2>
+    <p class="text-left mx-10 text-base">En este caso el procedimiento es sencillo ya que con tocar el botón de envío de Vep el programa se encarga de hacer la búsqueda de los clientes que tienen como atributo
+        la columna de "VEP" en "SI". En lo que se debe prestar atención, es en el momento en el que se guarda el archivo. Para nombrarlo, solamente tenemos que utilizar su número de CUIT tal y como se lo utiliza
+        en la tabla de la base de datos.
+    </p>
+    
+    <h2 id="Envío de Mensajes y Recordatorios" class="text-left mx-5 my-3 text-xl">Envío de Mensaje y Recordatorio</h2>
+    <p class="text-left mx-10 text-base">Para el envío de Mensajes y Recordatorios el procedimiento es el mismo, se utiliza el botón correspondiente a la acción que se desea realizar teniendo en cuenta que en la
+        base de datos se deja previsto en dos columnas diferentes si al cliente hay que enviarle el mensaje o el recordatorio. Por este motivo son dos botones diferentes, cada uno verifica en la base de datos que 
+        el cliente esté habilitado para recibir uno u otro. Esto es importante tenerlo en cuenta a la hora de realizar las operaciones para no tener errores involuntarios, los cuales, no son verificados por el 
+        sistema. Por ejemplo si se quiso enviar un recordatorio a un cliente que lo tiene inhabilitado en la base de datos, el sistema no informará un error sino que no enviará el recordatorio a ese cliente, lo 
+        mismo ocurriría con la operación de mensajes. 
+    </p>
+    <div class="text-right mr-5 my-10">
+        <a href="#Inicio" class="underline text-sm">Volver al Inicio</a>
+    </div>
+    <footer class="text-center my-16">
+        Desarrollado por M.A. Servicios Informáticos&COPY; para Estudio Bipart 
+    </footer>
 </body>
 </html>
