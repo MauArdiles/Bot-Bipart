@@ -1,5 +1,5 @@
 --Tabla clientes
-CREATE TABLE clients(
+CREATE TABLE IF NOT EXISTS clients(
     cuit VARCHAR(255) NOT NULL PRIMARY KEY,
     cliente VARCHAR(255) NOT NULL,
     vep VARCHAR(255) NOT NULL,
