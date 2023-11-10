@@ -1,5 +1,5 @@
 const xlsx = require("xlsx");
-const pool = require("../db.js");
+const { pool } = require("../db.js");
 
 const readFile = async (req, res) => {
   if (!req.file) {
@@ -13,7 +13,7 @@ const readFile = async (req, res) => {
     const data = xlsx.utils.sheet_to_json(sheet);
 
     for (const row of data) {
-      pool.query(
+      await pool.query(
         "INSERT INTO clients(cuit, cliente, vep, mensaje, recordatorio, contacto, alternativo, grupo) VALUES (?,?,?,?,?,?,?,?)",
         [
           row.CUIT,
@@ -29,16 +29,15 @@ const readFile = async (req, res) => {
     }
     res.json("Datos ingresados correctamente");
   } catch (error) {
-    console.error(error);
     res
       .status(500)
       .send(
-        "Error al procesar el archivo Excel y escribir en la base de datos"
+        `Error al procesar el archivo Excel y escribir en la base de datos - ${error.message}`
       );
   }
 };
 
-const updateFile = (req, res) => {
+const updateFile = async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No se ha cargado ningún archivo");
   }
@@ -50,7 +49,7 @@ const updateFile = (req, res) => {
     const data = xlsx.utils.sheet_to_json(sheet);
 
     for (const row of data) {
-      pool.query("UPDATE clients SET ? WHERE cuit = ?", [row, row.CUIT]);
+      await pool.query("UPDATE clients SET ? WHERE cuit = ?", [row, row.CUIT]);
     }
 
     res.json("Datos actualizados correctamente");

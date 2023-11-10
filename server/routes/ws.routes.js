@@ -14,6 +14,6 @@ router.post("/recordatorio", envioRecordatorio);
 
 router.post("/msj-media", envioMsjMedia);
 
-router.get("/", initializeClient);
+router.get("/initialize", initializeClient);
 
 module.exports = router;

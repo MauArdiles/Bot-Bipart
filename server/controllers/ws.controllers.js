@@ -1,6 +1,6 @@
 const { MessageMedia } = require("whatsapp-web.js");
 const Cliente = require("../ws-client/wsClient.js");
-const pool = require("../db.js");
+const { pool } = require("../db.js");
 const fs = require("fs");
 const path = require("path");
 const qrCode = require("qrcode");
@@ -14,15 +14,12 @@ const envioMensaje = async (req, resp) => {
     [resultado] = await pool.query(
       "SELECT contacto FROM clients WHERE mensaje = 'SI'"
     );
-    console.log(resultado);
     resultado.forEach(async (fila) => {
       let { contacto } = fila;
       msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
     });
-    console.log(msjEnviado);
     resp.json("El mensaje se envió correctamente");
   } catch (error) {
-    console.error(error);
     resp.send(error);
   }
 };
@@ -46,13 +43,10 @@ const envioMsjMedia = async (req, resp) => {
       number.forEach(async (row) => {
         let { contacto } = row;
         msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, media);
-        console.log(msjEnviado);
-        console.log(msjEnviado._data.to.user);
       });
     });
     resp.json("Mensaje enviado Correctamente");
   } catch (error) {
-    console.error(error);
     resp.send(error);
   }
 };
@@ -68,10 +62,8 @@ const envioRecordatorio = async (req, resp) => {
       let { contacto } = fila;
       msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
     });
-    console.log(msjEnviado);
     resp.json("El mensaje se envió correctamente");
   } catch (error) {
-    console.error(error);
     resp.send(error);
   }
 };

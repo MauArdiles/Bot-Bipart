@@ -15,4 +15,4 @@ const pool = createPool({
   database: DB_NAME,
 });
 
-module.exports = pool;
+module.exports = { pool };

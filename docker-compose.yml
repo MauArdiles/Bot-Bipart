@@ -1,29 +1,30 @@
-version: '3'
+version: '3.8'  
 services:
   web:
     image: nginx:stable-alpine3.17-slim
     ports:
-      - '5502:80'
+      - 5502:80
     volumes:
       - ./client:/usr/share/nginx/html
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '4000:4000'
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db   
   db:
     image: mysql:latest
-    ports:
-    - '3307:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: 'BipartPass'
-      MYSQL_DATABASE: 'Clientes_db'
-      MYSQL_USER: 'bipart'
-      MYSQL_PASSWORD: 'bipart'
+      - MYSQL_ROOT_PASSWORD=BipartPass
+      - MYSQL_DATABASE=Clientes_db
+      - MYSQL_USER=bipart
+      - MYSQL_PASSWORD=bipart
+    ports:
+    - 3307:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+  app:
+    build: .
+    depends_on:
+      - db
+    links:
+      - db  
+    ports:
+      - 4000:4000
         
-    
+volumes:
+  mysql-data:

@@ -159,9 +159,10 @@ const btn_Connect = document.getElementById("btn_wp");
 
 btn_Connect.addEventListener("click", async () => {
   try {
-    const response = await fetch("http://localhost:4000", { method: "GET" });
+    const response = await fetch("http://localhost:4000/initialize", {
+      method: "GET",
+    });
     if (response.ok) {
-      console.log("Connection successful");
       const urlData = response.url;
       window.open(urlData, "_blank");
     } else {
