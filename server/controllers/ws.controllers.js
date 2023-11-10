@@ -26,8 +26,8 @@ const envioMensaje = async (req, resp) => {
 
 const envioMsjMedia = async (req, resp) => {
   try {
-    const folder =
-      "C:/Users/mauri/Documents/programacion/Practicas/Veps-Prueba";
+    const folder = "D:/Equipos/3- Equipo MONOTRIBUTO/Administracion/Mili/VEP";
+    // "C:/Users/mauri/Documents/programacion/Practicas/Veps-Prueba";
     let files = fs.readdirSync(folder);
     let media = "";
     let number = "";

@@ -20,6 +20,7 @@ services:
       - mysql-data:/var/lib/mysql
   app:
     build: .
+    restart: always
     depends_on:
       - db
     links:
