@@ -58,8 +58,12 @@ const envioRecordatorio = async (req, resp) => {
       "SELECT contacto FROM clients WHERE recordatorio = 'SI'"
     );
     resultado.forEach(async (fila) => {
-      let { contacto } = fila;
-      msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
+      try {
+        let { contacto } = fila;
+        msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, message);
+      } catch (error) {
+        console.log(error);
+      }
     });
     resp.json("El mensaje se envió correctamente");
   } catch (error) {
@@ -89,6 +93,9 @@ const initializeClient = (req, resp) => {
 
   cliente.on("ready", () => {
     cliente.status = true;
+    if (cliente.status === true) {
+      console.log("Client ready");
+    }
   });
 
   cliente.on("auth_failure", () => {
