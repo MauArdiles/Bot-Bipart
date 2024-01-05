@@ -26,8 +26,7 @@ const envioMensaje = async (req, resp) => {
 
 const envioMsjMedia = async (req, resp) => {
   try {
-    const folder = "D:/Equipos/3- Equipo MONOTRIBUTO/Administracion/Mili/VEP";
-    // "C:/Users/mauri/Documents/programacion/Practicas/Veps-Prueba";
+    const folder = "C:/Users/Mauricio/Documents/VEPS";
     let files = fs.readdirSync(folder);
     let media = "";
     let number = "";
@@ -70,13 +69,11 @@ const envioRecordatorio = async (req, resp) => {
 
 const initializeClient = (req, resp) => {
   cliente.initialize();
-
   cliente.on("qr", (qr) => {
     const qrData = qr;
-    qrCode.toDataURL(qrData, (err, dataUrl) => {
-      if (err) {
-        console.log(`Conection Failed: ${err.message}`);
-      } else {
+    qrCode
+      .toDataURL(qrData)
+      .then((dataUrl) => {
         resp.send(
           `<h1>Conexión con QR</h1>
           <h2>Escanear el QR para conectarse con WhatsApp</h2>
@@ -84,8 +81,10 @@ const initializeClient = (req, resp) => {
           <p>El QR se actualizará cada 1 minuto</p>
           `
         );
-      }
-    });
+      })
+      .catch((error) => {
+        resp.json(`Conection Failed: ${error.message}`);
+      });
   });
 
   cliente.on("ready", () => {

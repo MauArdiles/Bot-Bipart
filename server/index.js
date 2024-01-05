@@ -24,4 +24,11 @@ app.use(wsRoutes);
 /*---------------------------------------------------*/
 app.listen(PORT);
 console.log(`Listening on port: ${PORT}`);
-pool.on("connection", () => console.log("Database Conected"));
+
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error("Error al conectar la base de datos: " + err.message);
+    return;
+  }
+  console.log("Conexión exitosa a la base de datos");
+});

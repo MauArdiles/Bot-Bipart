@@ -61,10 +61,11 @@ UpdatingDb();
 const btnSend = document.getElementById("sendMsg");
 btnSend.addEventListener("click", enviarTexto());
 
-function enviarTexto() {
+async function enviarTexto() {
   document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.getElementById("textForm");
     const responseDiv = document.getElementById("MsgResponse");
+
     formulario.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(formulario);
@@ -83,7 +84,7 @@ function enviarTexto() {
         });
         console.log(response);
         if (response.ok) {
-          const data = await response.json();
+          const data = response.json();
           responseDiv.innerHTML = JSON.stringify(data, null, 2);
         } else {
           responseDiv.innerHTML = "Error al enviar el mensaje";
@@ -122,7 +123,7 @@ function enviarRecordatorio() {
         });
         console.log(response);
         if (response.ok) {
-          const data = await response.json();
+          const data = response.json();
           responseDiv.innerHTML = JSON.stringify(data, null, 2);
         } else {
           responseDiv.innerHTML = "Error al enviar el mensaje";

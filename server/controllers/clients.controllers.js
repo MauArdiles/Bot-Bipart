@@ -20,8 +20,7 @@ const cuitMensaje = async (req, res) => {
     contacto += result[i].contacto + "\n";
   }
   res.json(result);
-};
-
+}
 module.exports = {
   cuitRecordatorio: cuitRecordatorio,
   cuitMensaje: cuitMensaje,

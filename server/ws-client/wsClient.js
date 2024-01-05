@@ -1,26 +1,26 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
-const qr = require("qrcode");
+// const qr = require("qrcode");
 
 class Cliente extends Client {
   constructor() {
     super({
       puppeteer: {
         //executablePath: "/usr/bin/google-chrome-stable", solo para docker
-        headless: "new",
+        headless: "true",
         args: [
           "--no-sandbox",
           "--disable-setuid-sandbox",
           "--unhandled-rejections=strict",
           "--enable-gpu",
+          "--disable-popup-blocking",
         ],
+        ignoreHTTPSErrors: true,
         //ignoreDefaultArgs: ["--disable-extensions"],
       },
       authStrategy: new LocalAuth({
         clientId: "bipart",
       }),
     });
-
-    // this.initialize();
 
     // this.on("qr", (qr) => {
     //   console.log("QR CREADO");
