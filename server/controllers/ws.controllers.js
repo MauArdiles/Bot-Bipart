@@ -25,29 +25,45 @@ const envioMensaje = async (req, resp) => {
 };
 
 const envioMsjMedia = async (req, resp) => {
+  const directorio = "/app/VEPS";
   try {
-    const folder = "C:/Users/Mauricio/Documents/VEPS";
-    let files = fs.readdirSync(folder);
-    let media = "";
-    let number = "";
-    let msjEnviado = {};
+    let files = fs.readdirSync(directorio);
     files.forEach(async (file) => {
-      let f = file.slice(0, 11);
-      file = path.join(folder, file);
-      media = MessageMedia.fromFilePath(`${file}`);
-      [number] = await pool.query(
+      let cleanCuil = file.slice(0, 11);
+      let pdfFile = path.join(directorio, file);
+      let media = await MessageMedia.fromFilePath(pdfFile);
+      let [number] = await pool.query(
         "SELECT contacto FROM clients WHERE vep='si' && cuit=?",
-        f
+        cleanCuil
       );
       number.forEach(async (row) => {
         let { contacto } = row;
-        msjEnviado = await cliente.sendMessage(`${contacto}@c.us`, media);
+        await cliente.sendMessage(`${contacto}@c.us`, media);
       });
     });
-    resp.json("Mensaje enviado Correctamente");
+    resp.send("Sending message successfully");
   } catch (error) {
-    resp.send(error);
+    console.error(error);
+    // resp.status(400).send(error);
   }
+  //       let files = fs.readdirSync(folder);
+  //       console.log(files);
+  //       files.forEach(async (file) => {
+  //         let cleanCuil = file.slice(0, 11);
+  //         let pdfFile = path.join(directorio, file);
+  //         let media = await new MessageMedia.fromFilePath(pdfFile);
+  //         let [number] = await pool.query(
+  //           "SELECT contacto FROM clients WHERE vep='si' && cuit=?",
+  //           cleanCuil
+  //         );
+  //         number.forEach(async (row) => {
+  //           let { contacto } = row;
+  //           await cliente.sendMessage(`${contacto}@c.us`, media);
+  //         });
+  //       });
+  //       resp.status(200).send("Sending message successfully");
+  //     }
+  //   });
 };
 
 const envioRecordatorio = async (req, resp) => {

@@ -101,7 +101,7 @@ async function enviarTexto() {
 const btnRec = document.getElementById("sendRec");
 btnRec.addEventListener("click", enviarRecordatorio());
 
-function enviarRecordatorio() {
+async function enviarRecordatorio() {
   document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.getElementById("textForm");
     const responseDiv = document.getElementById("MsgResponse");
@@ -139,22 +139,25 @@ function enviarRecordatorio() {
 
 const btnVep = document.getElementById("sendVep");
 const responseDiv = document.getElementById("MsgResponse");
-btnVep.addEventListener("click", async () => {
+btnVep.addEventListener("click", enviarVep());
+
+async function enviarVep() {
   try {
     const response = await fetch("http://localhost:4000/msj-media", {
       method: "POST",
+      headers: { "content-type": "application/json" },
     });
     console.log(response);
-    if (response.ok) {
-      responseDiv.innerHTML = `El Vep se envió correctamente`;
+    if (response.statusText === "ok") {
+      responseDiv.innerHTML = "Envío Correcto";
     } else {
-      responseDiv.innerHTML = "Error al enviar Vep";
+      responseDiv.innerHTML = "Hubo un error en el envío";
     }
   } catch (error) {
     console.error(error);
-    responseDiv.innerHTML = `ERROR: ${error.message}`;
   }
-});
+}
+
 /* ---------------------------------------------------------- */
 const btn_Connect = document.getElementById("btn_wp");
 

@@ -3,7 +3,7 @@ const { config } = require("dotenv");
 config();
 
 const PORT = process.env.PORT || 4000;
-const DB_HOST = process.env.DB_HOST || "db";
+const DB_HOST = process.env.DB_HOST || "db_bipart";
 const DB_ROOT_PASSWORD = process.env.DB_ROOT_PASSWORD || "BipartPass";
 const DB_USER = process.env.DB_USER || "bipart";
 const DB_PASSWORD = process.env.DB_PASSWORD || "bipart";

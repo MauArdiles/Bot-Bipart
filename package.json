@@ -1,7 +1,7 @@
 {
   "name": "bot_estudio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bot para envio de mensajes automatizado",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {

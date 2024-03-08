@@ -6,7 +6,7 @@ services:
       - 5502:80
     volumes:
       - ./client:/usr/share/nginx/html
-  db:
+  db_bipart:
     image: mysql:latest
     env_file: ./.env
     environment:
@@ -22,10 +22,12 @@ services:
     build: .
     restart: always
     depends_on:
-      - db
+      - db_bipart
     links:
-      - db
+      - db_bipart
     env_file: ./.env
+    volumes:
+      - C:/Users/mauri/Documents/Veps:/app/VEPS
     ports:
       - $PORT:$DOCKER_PORT
 
