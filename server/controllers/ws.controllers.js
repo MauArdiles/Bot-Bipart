@@ -31,7 +31,7 @@ const envioMsjMedia = async (req, resp) => {
     files.forEach(async (file) => {
       let cleanCuil = file.slice(0, 11);
       let pdfFile = path.join(directorio, file);
-      let media = await MessageMedia.fromFilePath(pdfFile);
+      let media = MessageMedia.fromFilePath(pdfFile);
       let [number] = await pool.query(
         "SELECT contacto FROM clients WHERE vep='si' && cuit=?",
         cleanCuil
@@ -44,26 +44,7 @@ const envioMsjMedia = async (req, resp) => {
     resp.send("Sending message successfully");
   } catch (error) {
     console.error(error);
-    // resp.status(400).send(error);
   }
-  //       let files = fs.readdirSync(folder);
-  //       console.log(files);
-  //       files.forEach(async (file) => {
-  //         let cleanCuil = file.slice(0, 11);
-  //         let pdfFile = path.join(directorio, file);
-  //         let media = await new MessageMedia.fromFilePath(pdfFile);
-  //         let [number] = await pool.query(
-  //           "SELECT contacto FROM clients WHERE vep='si' && cuit=?",
-  //           cleanCuil
-  //         );
-  //         number.forEach(async (row) => {
-  //           let { contacto } = row;
-  //           await cliente.sendMessage(`${contacto}@c.us`, media);
-  //         });
-  //       });
-  //       resp.status(200).send("Sending message successfully");
-  //     }
-  //   });
 };
 
 const envioRecordatorio = async (req, resp) => {

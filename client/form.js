@@ -148,7 +148,7 @@ async function enviarVep() {
       headers: { "content-type": "application/json" },
     });
     console.log(response);
-    if (response.statusText === "ok") {
+    if (response.statusText === "OK") {
       responseDiv.innerHTML = "Envío Correcto";
     } else {
       responseDiv.innerHTML = "Hubo un error en el envío";
